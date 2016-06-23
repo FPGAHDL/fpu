@@ -19,8 +19,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module mantissa_div(
-    input [23:0] operand_a,
-    input [23:0] operand_b,
+    input [23:0] operand_dividend,
+    input [23:0] operand_divisor,
     output [24:0] result,
     output [24:0] residue
 );
@@ -29,7 +29,7 @@ parameter mantissa_length = 24;
 wire [mantissa_length:0] residue_wire[mantissa_length + 1:0];
 wire [mantissa_length:0] result_wire;
 
-assign residue_wire[0] = operand_a; 
+assign residue_wire[0] = operand_dividend; 
 
 genvar i;
 generate
@@ -37,7 +37,7 @@ generate
     begin : gen
         single_div mydiv(
             .operand_a(residue_wire[i]),
-            .operand_b(operand_b),
+            .operand_b(operand_divisor),
             .residue(residue_wire[i+1]),
             .result(result_wire[mantissa_length - i]));
     end
