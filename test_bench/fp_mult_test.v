@@ -75,6 +75,18 @@ module fp_mult_test;
         #0
         if(!(result == 32'h00000000)) $display("Test 6 failed @ %g",$realtime);
         #10;
+        // -0 * 1.5 = -0
+        operand_a = 32'h80000000;
+        operand_b = 32'h3fc00000;
+        #0
+        if(!(result == 32'h80000000)) $display("Test 7 failed @ %g",$realtime);
+        #10;
+        // -0 * -1.5 = 0
+        operand_a = 32'h80000000;
+        operand_b = 32'hbfc00000;
+        #0
+        if(!(result == 32'h00000000)) $display("Test 8 failed @ %g",$realtime);
+        #10;
     end
 
 endmodule

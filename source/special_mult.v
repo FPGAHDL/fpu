@@ -47,15 +47,12 @@ value_decomposer decompose_b(
     .complete_mantissa(operand_b_mantissa)
     );
 
-parameter plus_zero = 32'h00000000;
-parameter minus_zero = 32'h8000000;
-
 always@(*)begin
     is_special = 0;
     result = 0;
-    if(operand_a == plus_zero || operand_a == minus_zero || operand_b == plus_zero || operand_b == minus_zero)begin
+    if(operand_a[30:0] == 0 || operand_b[30:0] == 0)begin
         is_special = 1;
-        result = plus_zero;
+        result = {(operand_a[31] ^ operand_b[31]), 31'b0};
     end
 end
 
